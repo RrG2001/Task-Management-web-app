@@ -14,11 +14,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function login($request)
     {
-        return $this->model->where('email', $request->email)->where('password', $request->password)->first();
-    }
-
-    public function create($userData)
-    {
-        // TODO: Implement create() method.
+        return $this->model
+            ->where('email', $request->email)
+            ->where('password', $request->password)
+            ->first();
     }
 }

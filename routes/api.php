@@ -22,4 +22,5 @@ Route::group(['prefix' => 'users'], function (){
     Route::post('/create', [\App\Http\Controllers\UsersController::class, 'store']);
     Route::post('/register', [\App\Http\Controllers\UsersController::class, 'register']);
     Route::post('/login', [\App\Http\Controllers\UsersController::class, 'login']);
+    Route::post('/resetPassword', [\App\Http\Controllers\UsersController::class, 'resetPassword']);
 });

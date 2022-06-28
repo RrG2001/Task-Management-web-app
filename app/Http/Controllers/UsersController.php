@@ -27,4 +27,18 @@ class UsersController extends Controller
     {
         return $this->userService->login($request);
     }
+
+    public function forgotPassword(Request $request)
+    {
+        return $this->userService->forgotPassword($request);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $resetPassword = $this->userService->resetPassword($request);
+
+        return $resetPassword
+            ? response()->json(['message' => 'Password reset successfully'])
+            : response()->json(['message' => 'Invalid token!']);
+    }
 }

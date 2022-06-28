@@ -7,31 +7,31 @@ use App\Interfaces\Services\UserServiceInterface;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
 
+/**
+ * @method registerPolicies()
+ */
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register()
     {
         //Services
         $this->app->bind(UserServiceInterface::class, UserService::class);
 
         //Repositories
-//        $this->app>bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
+
+    protected $policies = [
+        'App\Models\Model' => 'App\Policies\ModelPolicy',
+    ];
+
     public function boot()
     {
-        //
+        if (!$this->app->routesAreCached()) {
+            Passport::routes();
+        }
     }
 }
