@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\Repositories\UserRepositoryInterface;
+use App\Interfaces\Repositories\Repositories\UserRepositoryInterface;
 use App\Models\User;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
@@ -17,6 +17,13 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $this->model
             ->where('email', $request->email)
             ->where('password', $request->password)
+            ->first();
+    }
+
+    public function resetPassword($request)
+    {
+        return $this->model
+            ->where('passwordReset', $request->resetPassword)
             ->first();
     }
 }

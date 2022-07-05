@@ -2,11 +2,10 @@
 
 namespace App\Services;
 
-use App\Interfaces\Repositories\UserRepositoryInterface;
-use App\interfaces\Services\UserServiceInterface;
+use App\Interfaces\Repositories\Repositories\UserRepositoryInterface;
+use App\Interfaces\Services\UserServiceInterface;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +31,11 @@ class UserService implements UserServiceInterface
             'password' => $request->password,
         ];
         return $this->userRepository->create($userData);
+    }
+
+    public function getUserById($userId)
+    {
+        return $this->userRepository->findById($userId);
     }
 
     public function register($request)
@@ -84,7 +88,6 @@ class UserService implements UserServiceInterface
             'email' => 'required|email|exists:users',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required'
-
         ]);
 
         $passwordReset = DB::table('password_resets')->where(['email' => $request->email])->first();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UsersResources;
 use App\Interfaces\Services\UserServiceInterface;
 use Illuminate\Http\Request;
 class UsersController extends Controller
@@ -16,6 +17,11 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         return $this->userService->addUser($request);
+    }
+
+    public function read($userId)
+    {
+        return new UsersResources($this->userService->getUserById($userId));
     }
 
     public function register(Request $request)
