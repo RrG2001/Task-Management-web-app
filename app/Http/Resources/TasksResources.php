@@ -15,9 +15,15 @@ class TasksResources extends JsonResource
     public function toArray($request)
     {
         return [
-            'label' => $this->id,
+            'id' => $this->id,
+            'status' => $this->status,
             'value' => $this->title,
-            'status' => $this->status
+            'custom_id' => $this->custom_id,
+            'description' => $this->description,
+            'timeEstimation' => $this->time_estimation,
+            'priority' => $this->priority,
+            'reporter' => $this->reporter,
+            'assignees' => $this->users ? UsersResources::collection($this->users) : null
         ];
     }
 }

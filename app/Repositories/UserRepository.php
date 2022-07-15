@@ -26,4 +26,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             ->where('passwordReset', $request->resetPassword)
             ->first();
     }
+
+    public function getAll($projectId)
+    {
+        // TODO: Implement getAll() method.
+    }
 }

@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'users'], function (){
     Route::post('/create', [\App\Http\Controllers\UsersController::class, 'store']);
     Route::get('/{userId}/read', [\App\Http\Controllers\UsersController::class, 'read']);
+    Route::delete('/{userId}/delete', [\App\Http\Controllers\UsersController::class, 'delete']);
     Route::post('/register', [\App\Http\Controllers\UsersController::class, 'register']);
     Route::post('/login', [\App\Http\Controllers\UsersController::class, 'login']);
     Route::post('/resetPassword', [\App\Http\Controllers\UsersController::class, 'resetPassword']);
@@ -37,6 +38,10 @@ Route::group(['prefix' => 'tasks'], function (){
 Route::group(['prefix' => 'projects'], function (){
     Route::post('/create', [\App\Http\Controllers\ProjectController::class, 'store']);
     Route::get('/{projectId}/read', [\App\Http\Controllers\ProjectController::class, 'read']);
+    Route::get('{projectId}/tasks', [\App\Http\Controllers\ProjectController::class, 'getAll']);
+    Route::get('{projectId}/status', [\App\Http\Controllers\ProjectController::class, 'getStatus']);
+    Route::get('{projectId}/priority', [\App\Http\Controllers\ProjectController::class, 'getPriority']);
+    Route::get('{projectId?}/sort', [\App\Http\Controllers\ProjectController::class, 'sortProjectUsers']);
     Route::patch('/{projectId}/update', [\App\Http\Controllers\ProjectController::class, 'update']);
     Route::delete('/{projectId}/delete', [\App\Http\Controllers\ProjectController::class, 'delete']);
     Route::get('/project', [\App\Http\Controllers\ProjectController::class,'read']);

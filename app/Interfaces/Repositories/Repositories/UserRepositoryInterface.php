@@ -6,4 +6,5 @@ interface UserRepositoryInterface
 {
     public function login($request);
     public function resetPassword($request);
+    public function getAll($projectId);
 }

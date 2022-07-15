@@ -18,7 +18,11 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        return $this->taskService->store($request);
+        $task = $this->taskService->store($request);
+
+        return $task
+            ? new TasksResources($task)
+            : response()->json(['data' => false]);
     }
 
     public function read($taskId)

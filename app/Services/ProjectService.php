@@ -30,6 +30,38 @@ class ProjectService implements ProjectServiceInterface
         return $this->projectRepository->findById($projectId);
     }
 
+    public function getAll($projectId)
+    {
+        return $this->projectRepository->getAll($projectId);
+    }
+
+    public function getStatus($projectId, $statusId)
+    {
+        return $this->projectRepository->getStatus($projectId, $statusId);
+    }
+
+    public function getPriority($projectId, $priorityId)
+    {
+        return $this->projectRepository->getPriority($projectId, $priorityId);
+    }
+
+    public function sortProjectUsers($userId)
+    {
+        $project = $this->projectRepository->sortProjectUsers($userId);
+        $tempArray = [];
+
+        $projectTasks = $project->tasks;
+        foreach ($projectTasks as $projectTask) {
+            foreach ($projectTask->users as $user) {
+                if ($user->id == $userId) {
+                    $tempArray[] = $project;
+                }
+            }
+        }
+
+        return $tempArray;
+    }
+
     public function updateById($request, $projectId)
     {
         $project = $this->projectRepository->findById($projectId);

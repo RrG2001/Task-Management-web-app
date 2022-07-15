@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\TaskController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,5 +24,10 @@ class Task extends Model
     public function project()
     {
         return $this->belongsTo(Project::class,'project_id','id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 }

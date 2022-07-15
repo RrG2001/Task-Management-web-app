@@ -4,9 +4,7 @@ namespace App\Services;
 
 use App\Interfaces\Repositories\Repositories\UserRepositoryInterface;
 use App\Interfaces\Services\UserServiceInterface;
-use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -36,6 +34,13 @@ class UserService implements UserServiceInterface
     public function getUserById($userId)
     {
         return $this->userRepository->findById($userId);
+    }
+
+    public function deleteUser($userId)
+    {
+        $user = $this->userRepository->findById($userId);
+
+        return $user ? $this->userRepository->destroy($user->id) : false;
     }
 
     public function register($request)
@@ -99,7 +104,8 @@ class UserService implements UserServiceInterface
         return false;
     }
 
-    public function logout() {
+    public function logout()
+    {
         Auth::logout();
         return redirect('/login');
     }

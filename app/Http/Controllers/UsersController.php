@@ -24,6 +24,15 @@ class UsersController extends Controller
         return new UsersResources($this->userService->getUserById($userId));
     }
 
+    public function delete($userId)
+    {
+        $userDeleted = $this->userService->deleteTask($userId);
+
+        return $userDeleted
+            ? response()->json(['data'=>true])
+            : response()->json(['data'=>false]);
+    }
+
     public function register(Request $request)
     {
         return $this->userService->register($request);
