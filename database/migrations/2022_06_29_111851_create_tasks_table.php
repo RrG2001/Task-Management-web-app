@@ -29,6 +29,7 @@ class CreateTasksTable extends Migration
                 ->onDelete('cascade');
         });
     }
+
     /**
      * Reverse the migrations.
      *

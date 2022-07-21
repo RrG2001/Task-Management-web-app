@@ -4,8 +4,6 @@ namespace App\Repositories;
 
 use App\Interfaces\Repositories\ProjectRepositoryInterface;
 use App\Models\Project;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class ProjectRepository extends BaseRepository implements ProjectRepositoryInterface
 {

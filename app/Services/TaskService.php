@@ -6,6 +6,7 @@ use App\Interfaces\Repositories\ProjectRepositoryInterface;
 use App\Interfaces\Repositories\TaskRepositoryInterface;
 use App\Interfaces\Repositories\TaskUserRepositoryInterface;
 use App\Interfaces\Services\TaskServiceInterface;
+use http\Env\Request;
 use Illuminate\Support\Str;
 
 
@@ -86,5 +87,15 @@ class TaskService implements TaskServiceInterface
         $task->users()->detach();
 
         return $task ? $this->taskRepository->destroy($task->id) : false;
+    }
+
+    public function getFilteredTasks($request)
+    {
+        return $this->taskRepository->getFilteredTasks($request);
+    }
+
+    public function noAssignee($request)
+    {
+        return $this->taskRepository->noAssignee($request);
     }
 }

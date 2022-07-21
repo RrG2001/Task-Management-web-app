@@ -40,7 +40,17 @@ class TaskController extends Controller
         $taskDeleted = $this->taskService->deleteTask($taskId);
 
         return $taskDeleted
-            ? response()->json(['data'=>true])
-            : response()->json(['data'=>false]);
+            ? response()->json(['data' => true])
+            : response()->json(['data' => false]);
+    }
+
+    public function getFilteredTasks(Request $request)
+    {
+        return $this->taskService->getFilteredTasks($request);
+    }
+
+    public function noAssignee(Request $request)
+    {
+        return $this->taskService->noAssignee($request);
     }
 }

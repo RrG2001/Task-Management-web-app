@@ -19,6 +19,7 @@ class CreatePriorityTable extends Migration
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      *

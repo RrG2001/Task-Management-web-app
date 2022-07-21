@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Interfaces\Repositories\ProjectRepositoryInterface;
 use App\Interfaces\Services\ProjectServiceInterface;
-use Illuminate\Support\Str;
-
 
 class ProjectService implements ProjectServiceInterface
 {
@@ -14,15 +12,6 @@ class ProjectService implements ProjectServiceInterface
     public function __construct(ProjectRepositoryInterface $projectRepository)
     {
         $this->projectRepository = $projectRepository;
-    }
-
-    public function store($request)
-    {
-            $data = [
-                'name' => $request->name
-            ];
-
-        return $this->projectRepository->create($data);
     }
 
     public function getProjectById($projectId)
@@ -66,7 +55,7 @@ class ProjectService implements ProjectServiceInterface
     {
         $project = $this->projectRepository->findById($projectId);
 
-        $data=[
+        $data = [
             'name' => $request->name
         ];
 
@@ -78,5 +67,18 @@ class ProjectService implements ProjectServiceInterface
         $project = $this->projectRepository->findById($projectId);
 
         return $project ? $this->projectRepository->destroy($project->id) : false;
+    }
+
+    public function createMultipleProjects($request)
+    {
+        $projectsCreated = [];
+        foreach ($request->name as $project) {
+            $projects = [
+                'name' => $project,
+            ];
+
+            $projectsCreated[] = $this->projectRepository->create($projects);
+        }
+        return $projectsCreated;
     }
 }

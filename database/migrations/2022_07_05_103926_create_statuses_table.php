@@ -19,6 +19,7 @@ class CreateStatusesTable extends Migration
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      *

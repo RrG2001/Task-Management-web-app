@@ -6,6 +6,7 @@ use App\Http\Resources\ProjectsResources;
 use App\Http\Resources\ProjectWithTasksResource;
 use App\Interfaces\Services\ProjectServiceInterface;
 use App\Models\Task;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Project;
 
@@ -17,11 +18,6 @@ class ProjectController extends Controller
     public function __construct(ProjectServiceInterface $projectService)
     {
         $this->projectService = $projectService;
-    }
-
-    public function store(Request $request)
-    {
-        return $this->projectService->store($request);
     }
 
     public function read($projectId)
@@ -54,7 +50,7 @@ class ProjectController extends Controller
 
     public function sortProjectUsers($userId)
     {
-        return $project = $this->projectService->sortProjectUsers($userId);
+        $project = $this->projectService->sortProjectUsers($userId);
 
         return $project
             ? new ProjectWithTasksResource($project)
@@ -73,5 +69,14 @@ class ProjectController extends Controller
         return $projectDeleted
             ? response()->json(['data' => true])
             : response()->json(['data' => false]);
+    }
+
+    public function createMultipleProjects(Request $request)
+    {
+        $projects = $this->projectService->createMultipleProjects($request);
+
+        return $projects
+            ? ProjectsResources::collection($projects)
+            : response()->json(['data'=> false]);
     }
 }
